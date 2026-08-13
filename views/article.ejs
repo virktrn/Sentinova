@@ -1,0 +1,302 @@
+<%
+const safeArticle = article || {};
+const related = Array.isArray(relatedArticles)
+        ? relatedArticles
+        : [];
+
+const trending = typeof trendingArticles !== "undefined"
+        ? trendingArticles
+        : [];
+%>
+
+<div id="readingProgress"></div>
+
+<div class="article-container">
+
+    <div class="article-header">
+
+        <span class="article-category">
+            <%= safeArticle.category %>
+        </span>
+
+        <h1 class="article-title">
+            <%= safeArticle.title %>
+        </h1>
+
+        <div class="article-meta">
+
+            <div>
+
+                <strong>
+                    <%= safeArticle.author %>
+                </strong>
+
+            </div>
+
+            <div>
+                <%= new Date(
+                        safeArticle.createdAt
+                ).toDateString() %>
+            </div>
+
+            <div id="readingTime">
+                5 min read
+            </div>
+            <div class="article-stats">
+
+                <span>👁 News Analysis</span>
+
+                <span>📖 <span id="readingTime">5 min read</span></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <% if(safeArticle.image){ %>
+
+        <div class="article-hero-image">
+
+            <img
+                    src="<%= safeArticle.image %>"
+                    alt="<%= safeArticle.title %>"
+            >
+
+        </div>
+
+    <% } %>
+
+    <div class="article-layout">
+
+        <!-- Floating Share Buttons -->
+
+        <aside class="share-sidebar">
+
+            <button onclick="copyLink()">🔗</button>
+
+            <button onclick="window.scrollTo(0,0)">⬆️</button>
+
+        </aside>
+
+        <!-- Trending Sidebar -->
+
+        <aside class="trending-sidebar">
+
+            <h3>🔥 Trending News</h3>
+
+            <% trending.forEach(item => { %>
+
+                <a
+                        href="/article/<%= item.slug %>"
+                        class="trending-item"
+                >
+
+                    <% if(item.image){ %>
+
+                        <img
+                                src="<%= item.image %>"
+                                alt="<%= item.title %>"
+                                onerror="this.src='/images/news-placeholder.jpg'"
+                        >
+
+                    <% } %>
+
+                    <span>
+                    <%= item.title %>
+                </span>
+
+                </a>
+
+            <% }) %>
+
+        </aside>
+
+        <!-- Main Article -->
+
+        <article class="article-content">
+
+            <section class="article-summary-card">
+
+                <h2>📝 Summary</h2>
+
+                <p>
+                    <%= safeArticle.summary || "No summary available." %>
+                </p>
+
+            </section>
+
+            <section class="article-report-card">
+
+                <h2>📖 Full Report</h2>
+
+                <div class="article-body">
+
+                    <%= safeArticle.content %>
+
+                </div>
+
+            </section>
+
+            <section class="article-insights-card">
+
+                <h2>📈 Why It Matters</h2>
+
+                <p>
+                    This story highlights important developments that could influence public discussion, industry trends, business decisions, or future events.
+                </p>
+
+            </section>
+
+            <section class="article-takeaways-card">
+
+                <h2>🎯 Key Takeaways</h2>
+
+                <ul>
+                    <li>Major development covered by trusted news sources.</li>
+                    <li>Important context and implications for readers.</li>
+                    <li>Further updates are likely as the story evolves.</li>
+                    <li>Follow related coverage for deeper insights.</li>
+                </ul>
+
+            </section>
+
+            <% if(readMoreUrl){ %>
+
+                <div class="external-story">
+
+                    <a
+                            href="<%= readMoreUrl %>"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                    >
+                        🔗 Read Original Source
+                    </a>
+
+                </div>
+
+            <% } %>
+
+        </article>
+
+    </div>
+    <section class="author-card">
+
+        <div class="author-avatar">
+            <%= safeArticle.author
+                    ? safeArticle.author[0]
+                    : 'S' %>
+        </div>
+
+        <div>
+
+            <h3>
+                <%= safeArticle.author %>
+            </h3>
+
+            <p>
+                Curated and analyzed by Sentinova News Intelligence.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="related-section">
+
+        <h2>
+            Related Articles
+        </h2>
+
+        <div class="related-grid">
+
+            <% related.forEach(r=>{ %>
+
+                <a
+                        href="/article/<%= r.slug %>"
+                        class="related-card"
+                >
+
+                    <% if(r.image){ %>
+
+                        <img
+                                src="<%= safeArticle.image %>"
+                                alt="<%= safeArticle.title %>"
+                                onerror="this.src='/images/news-placeholder.jpg'"
+                        >
+
+                    <% } %>
+
+                    <div class="related-body">
+
+                        <h3>
+                            <%= r.title %>
+                        </h3>
+
+                    </div>
+
+                </a>
+
+            <% }) %>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+
+    const progressBar =
+        document.getElementById(
+            "readingProgress"
+        );
+
+    window.addEventListener(
+        "scroll",
+        ()=>{
+
+            const totalHeight =
+                document.body.scrollHeight -
+                window.innerHeight;
+
+            const progress =
+                (window.scrollY / totalHeight)
+                * 100;
+
+            progressBar.style.width =
+                progress + "%";
+
+        }
+    );
+
+    function copyLink(){
+
+        navigator.clipboard.writeText(
+            window.location.href
+        );
+
+        alert("Link copied!");
+
+    }
+
+    const text =
+        document.querySelector(
+            ".article-content"
+        ).innerText;
+
+    const words =
+        text.split(/\s+/).length;
+
+    const mins =
+        Math.max(
+            1,
+            Math.ceil(words / 200)
+        );
+
+    document.getElementById(
+        "readingTime"
+    ).innerText =
+        mins + " min read";
+
+</script>

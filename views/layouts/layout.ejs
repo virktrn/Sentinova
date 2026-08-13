@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        <%= typeof pageTitle !== 'undefined'
+                ? pageTitle + ' | Sentinova'
+                : 'Sentinova - Modern News Platform' %>
+    </title>
+
+    <meta
+            name="description"
+            content="Sentinova is a modern AI-powered news platform delivering global news and insights."
+    >
+
+    <meta
+            name="keywords"
+            content="news, technology, business, sports, world news, AI news"
+    >
+
+    <meta
+            property="og:title"
+            content="Sentinova"
+    >
+
+    <meta
+            property="og:description"
+            content="Modern AI-powered News Platform"
+    >
+
+    <meta
+            property="og:type"
+            content="website"
+    >
+
+    <meta
+            property="og:image"
+            content="/images/logo.png"
+    >
+
+    <link
+            rel="icon"
+            href="/images/favicon.png"
+    >
+
+    <!-- INTER FONT -->
+
+    <link
+            rel="preconnect"
+            href="https://fonts.googleapis.com"
+    >
+
+    <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+    >
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+    >
+
+    <!-- AOS -->
+
+    <link
+            href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+            rel="stylesheet"
+    >
+
+    <link
+            rel="stylesheet"
+            href="/css/styles.css"
+    >
+
+</head>
+
+<body>
+
+<!--<div id="loader">-->
+
+<!--    <div class="loader-spinner"></div>-->
+
+<!--</div>-->
+
+<%- include("../partials/header") %>
+
+<main>
+
+    <%- body %>
+
+</main>
+
+<%- include("../partials/footer") %>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+
+    AOS.init({
+        duration:800,
+        once:true
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const loader = document.getElementById("loader");
+
+        if (loader) {
+            loader.classList.add("loader-hidden");
+        }
+    });
+
+    setTimeout(() => {
+        const loader = document.getElementById("loader");
+
+        if (loader) {
+            loader.classList.add("loader-hidden");
+        }
+    }, 2000);
+
+</script>
+
+</body>
+
+</html>

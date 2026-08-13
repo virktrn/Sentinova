@@ -1,0 +1,187 @@
+<%
+const safeCategory = queryCategory || "All";
+const safeArticles = Array.isArray(articles) ? articles : [];
+
+const featuredArticle =
+        safeArticles.length > 0 ? safeArticles[0] : null;
+
+const remainingArticles =
+        safeArticles.slice(1);
+%>
+
+<div class="homepage">
+
+    <% if(featuredArticle){ %>
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <span class="hero-badge">
+                    <%= featuredArticle.category %>
+                </span>
+
+                <h1>
+                    <%= featuredArticle.title %>
+                </h1>
+
+                <p>
+                    <%= featuredArticle.summary || '' %>
+                </p>
+
+                <a
+                        href="/article/<%= featuredArticle.slug %>"
+                        class="hero-btn"
+                >
+                    Read Full Story
+                </a>
+
+            </div>
+
+            <div class="hero-image">
+
+                <% if(featuredArticle.image){ %>
+
+                    <img
+                            src="<%= featuredArticle.image %>"
+                            alt="<%= featuredArticle.title %>"
+                    >
+
+                <% } %>
+
+            </div>
+
+        </section>
+
+    <% } %>
+
+    <section class="category-bar">
+
+        <a href="/?category=All"
+           class="<%= safeCategory === 'All' ? 'active' : '' %>">
+            🌎 All
+        </a>
+
+        <a href="/?category=Technology">
+            💻 Technology
+        </a>
+
+        <a href="/?category=Business">
+            💼 Business
+        </a>
+
+        <a href="/?category=Sports">
+            🏈 Sports
+        </a>
+
+        <a href="/?category=Entertainment">
+            🎬 Entertainment
+        </a>
+
+        <a href="/?category=Health">
+            ❤️ Health
+        </a>
+
+    </section>
+
+    <div class="content-layout">
+
+        <section class="main-news">
+
+            <div class="section-title">
+                Latest News
+            </div>
+
+            <div class="articles-grid">
+
+                <% remainingArticles.forEach(article => { %>
+
+                    <a
+                            href="/article/<%= article.slug %>"
+                            class="article-card"
+                    >
+
+                        <% if(article.image){ %>
+
+                            <img
+                                    src="<%= article.image %>"
+                                    class="article-thumb"
+                                    alt="<%= article.title %>"
+                            >
+
+                        <% } %>
+
+                        <div class="article-body">
+
+                            <span class="category-tag">
+                                <%= article.category %>
+                            </span>
+
+                            <h2>
+                                <%= article.title %>
+                            </h2>
+
+                            <p>
+                                <%= article.summary
+                                        ? article.summary.substring(0,120)
+                                        : '' %>
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                <% }) %>
+
+            </div>
+
+        </section>
+
+        <aside class="trending-sidebar">
+
+            <h3>
+                🔥 Trending Topics
+            </h3>
+
+            <ul>
+
+                <li>#ArtificialIntelligence</li>
+
+                <li>#OpenAI</li>
+
+                <li>#Technology</li>
+
+                <li>#Startups</li>
+
+                <li>#Business</li>
+
+                <li>#Sports</li>
+
+            </ul>
+
+            <div class="newsletter-box">
+
+                <h4>
+                    Newsletter
+                </h4>
+
+                <p>
+                    Get daily news updates.
+                </p>
+
+                <input
+                        type="email"
+                        placeholder="Your email"
+                >
+
+                <button>
+                    Subscribe
+                </button>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</div>

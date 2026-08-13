@@ -1,0 +1,179 @@
+<div class="dashboard">
+
+    <div class="dashboard-header">
+
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p>Manage your news platform</p>
+        </div>
+
+        <a
+                href="/admin/create"
+                class="btn-create"
+        >
+            + Create Article
+        </a>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📰
+            </div>
+
+            <div>
+                <h2>
+                    <%= articleCount %>
+                </h2>
+
+                <p>
+                    Total Articles
+                </p>
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ✅
+            </div>
+
+            <div>
+                <h2>
+                    <%= publishedCount %>
+                </h2>
+
+                <p>
+                    Published
+                </p>
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📝
+            </div>
+
+            <div>
+                <h2>
+                    <%= draftCount %>
+                </h2>
+
+                <p>
+                    Drafts
+                </p>
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📂
+            </div>
+
+            <div>
+                <h2>
+                    <%= categoryCount %>
+                </h2>
+
+                <p>
+                    Categories
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-table">
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>Title</th>
+
+                <th>Category</th>
+
+                <th>Status</th>
+
+                <th>Actions</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <% articles.forEach(article => { %>
+
+                <tr>
+
+                    <td>
+
+                        <strong>
+                            <%= article.title %>
+                        </strong>
+
+                    </td>
+
+                    <td>
+                        <%= article.category %>
+                    </td>
+
+                    <td>
+
+                        <% if(article.isPublished){ %>
+
+                            <span class="status published">
+                                Published
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="status draft">
+                                Draft
+                            </span>
+
+                        <% } %>
+
+                    </td>
+
+                    <td>
+
+                        <a
+                                href="/admin/edit/<%= article.id %>"
+                                class="action-btn edit"
+                        >
+                            Edit
+                        </a>
+
+                        <a
+                                href="/admin/delete/<%= article.id %>"
+                                class="action-btn delete"
+                        >
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

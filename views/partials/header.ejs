@@ -1,0 +1,198 @@
+<header class="main-header">
+
+    <div class="header-container">
+
+        <a href="/" class="logo">
+            <span class="logo-icon">📰</span>
+            Sentinova
+        </a>
+
+        <nav class="desktop-nav">
+
+            <a href="/">Home</a>
+
+            <a href="/?category=Technology">
+                Technology
+            </a>
+
+            <a href="/?category=Business">
+                Business
+            </a>
+
+            <a href="/?category=Sports">
+                Sports
+            </a>
+
+            <a href="/?category=Entertainment">
+                Entertainment
+            </a>
+
+        </nav>
+
+        <form
+                action="/search"
+                method="GET"
+                class="header-search"
+        >
+
+            <input
+                    type="text"
+                    name="q"
+                    placeholder="Search news..."
+            >
+
+        </form>
+
+        <div class="header-actions">
+
+            <button
+                    id="themeToggle"
+                    class="theme-btn"
+            >
+                🌙
+            </button>
+
+            <% if(user){ %>
+
+                <div class="user-menu">
+
+                    <span class="user-name">
+                        <%= user.name %>
+                    </span>
+
+                    <div class="dropdown-menu">
+
+                        <% if(
+                                user.role === "admin" ||
+                                user.role === "editor"
+                        ){ %>
+
+                            <a href="/admin/dashboard">
+                                Dashboard
+                            </a>
+
+                        <% } %>
+
+                        <a href="/auth/logout">
+                            Logout
+                        </a>
+
+                    </div>
+
+                </div>
+
+            <% } else { %>
+
+                <a
+                        href="/auth/login"
+                        class="login-btn"
+                >
+                    Login
+                </a>
+
+                <a
+                        href="/auth/register"
+                        class="register-btn"
+                >
+                    Register
+                </a>
+
+            <% } %>
+
+        </div>
+
+        <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+        >
+            ☰
+        </button>
+
+    </div>
+
+    <div
+            class="mobile-menu"
+            id="mobileMenu"
+    >
+
+        <a href="/">Home</a>
+
+        <a href="/?category=Technology">
+            Technology
+        </a>
+
+        <a href="/?category=Business">
+            Business
+        </a>
+
+        <a href="/?category=Sports">
+            Sports
+        </a>
+
+        <a href="/?category=Entertainment">
+            Entertainment
+        </a>
+
+    </div>
+
+</header>
+
+<script>
+
+    const toggle =
+        document.getElementById(
+            "themeToggle"
+        );
+
+    if(
+        localStorage.getItem(
+            "theme"
+        )==="dark"
+    ){
+        document.body.classList.add(
+            "dark"
+        );
+    }
+
+    toggle?.addEventListener(
+        "click",
+        ()=>{
+
+            document.body.classList.toggle(
+                "dark"
+            );
+
+            localStorage.setItem(
+                "theme",
+                document.body.classList.contains(
+                    "dark"
+                )
+                    ?
+                    "dark"
+                    :
+                    "light"
+            );
+
+        }
+    );
+
+    const menuBtn =
+        document.getElementById(
+            "mobileMenuBtn"
+        );
+
+    const mobileMenu =
+        document.getElementById(
+            "mobileMenu"
+        );
+
+    menuBtn?.addEventListener(
+        "click",
+        ()=>{
+            mobileMenu.classList.toggle(
+                "show-mobile-menu"
+            );
+        }
+    );
+
+</script>

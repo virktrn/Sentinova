@@ -1,0 +1,99 @@
+<div class="auth-page">
+
+    <div class="auth-left">
+
+        <div class="auth-brand">
+
+            <h1>Join Sentinova</h1>
+
+            <p>
+                Create your account and access
+                premium news experiences.
+            </p>
+
+            <ul>
+                <li>⚡ Fast News Discovery</li>
+                <li>🎯 Personalized Categories</li>
+                <li>📚 Save Articles</li>
+                <li>🌙 Dark Mode Support</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="auth-right">
+
+        <div class="auth-card">
+
+            <h2>Create Account</h2>
+
+            <p>
+                Start your journey today
+            </p>
+
+            <form
+                    method="POST"
+                    action="/auth/register"
+            >
+
+                <div class="input-group">
+
+                    <label>Name</label>
+
+                    <input
+                            type="text"
+                            name="name"
+                            required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Email</label>
+
+                    <input
+                            type="email"
+                            name="email"
+                            required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Password</label>
+
+                    <input
+                            type="password"
+                            name="password"
+                            required
+                    >
+
+                </div>
+
+                <button
+                        type="submit"
+                        class="auth-btn"
+                >
+                    Register
+                </button>
+
+            </form>
+
+            <div class="auth-footer">
+
+                Already have an account?
+
+                <a href="/auth/login">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
